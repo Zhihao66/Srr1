@@ -240,7 +240,7 @@ length(down_FC_2)
 srr_up_enrichment <- enrichGO(gene=down_FC_2,
                               OrgDb=org.CABnewInterGO1.eg.db,
                               keyType="GID",
-                              ont="all",   #CC/BP/MF可选
+                              ont="all",   #CC/BP/MF
                               qvalueCutoff = 0.5,
                               pvalueCutoff =0.05,
                               pAdjustMethod="none",
