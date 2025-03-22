@@ -162,7 +162,7 @@ Heatmap(expr_scaled,
 )+(ha_SP)+(ha_TF)
 
 ######################################################
-###################.     DEseq2   ################
+###  DEseq2 for sample correlation   ################
 ######################################################
 ######################################################
 
@@ -182,18 +182,18 @@ rownames(meta.data)=colnames(d)
 all((rownames(meta.data))==colnames(d))
 
 ########### make the dds data set
-dds_protoplat=DESeqDataSetFromMatrix(countData = d,
+dds_srr1=DESeqDataSetFromMatrix(countData = d,
                                      colData = meta.data,
                                      design= ~condation)
 
 ###################caculate the size factor for normalization
-dds_protoplat<- estimateSizeFactors(dds_protoplat)
-sizeFactors(dds_protoplat)
-normlized.count=counts(dds_protoplat,normalized=T)
+dds_srr1<- estimateSizeFactors(dds_srr1)
+sizeFactors(dds_srr1)
+normlized.count=counts(dds_srr1,normalized=T)
 write.csv(normlized.count,"normlized.cout.tsv",col.names=T)
 
 ############# samples corration and PCA analysis
-vsd_protoplast=vst(dds_protoplat,blind = T)
+vsd_protoplast=vst(dds_srr1,blind = T)
 vsd_mat_protoplast=assay(vsd_protoplast)
 vsd_cor_protoplast=cor(vsd_mat_protoplast)
 View(vsd_cor_protoplast)
@@ -214,9 +214,9 @@ ggplot(toplot_deseq, aes(Dim1, Dim2, colour = Group, label=labels)) +
 
 plotPCA(vsd_protoplast,intgroup="condation")
 
-dds_protoplat=DESeq(dds_protoplat)
+dds_srr1=DESeq(dds_srr1)
 
-plotDispEsts(dds_protoplat)
+plotDispEsts(dds_srr1)
 
 ######### Volcano plot ######### 
 library(EnhancedVolcano)
